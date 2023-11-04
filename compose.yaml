@@ -1,0 +1,48 @@
+services:
+  mysql:
+    build: ./mysql
+    environment:
+      MYSQL_DATABASE: menu
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db:/var/lib/mysql
+    expose:
+      - 3306
+    networks:
+      - menu
+
+  django:
+    build:
+      context: ./backend
+    volumes:
+      - static:/django/static
+      - media:/django/media
+    depends_on:
+      - mysql
+    expose:
+      - 8000
+    environment:
+      - DB_HOST=mysql
+      - DEBUG=True
+    networks:
+      - menu
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/nginx/static
+      - media:/nginx/media
+    depends_on:
+      - django
+    ports:
+      - 80:80
+    networks:
+      - menu
+
+volumes:
+  db:
+  static:
+  media:
+
+networks:
+  menu:

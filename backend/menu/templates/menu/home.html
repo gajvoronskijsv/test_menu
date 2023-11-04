@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load tree_menu %}
+
+{% block content %}
+    {{ block.super }}
+    {% draw_menu "main_menu" %}
+{% endblock %}
+
