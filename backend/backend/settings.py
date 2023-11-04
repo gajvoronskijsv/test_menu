@@ -58,11 +58,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 
 DATABASES = {
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'ex': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': secrets.DB_name,
         'USER': secrets.DB_user,
